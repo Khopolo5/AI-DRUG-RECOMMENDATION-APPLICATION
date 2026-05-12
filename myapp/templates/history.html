@@ -1,0 +1,129 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>History</title>
+        <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="{% static 'myapp/style.css' %}">
+</head>
+<body>
+    <div class="header">
+        <div class="side-bar">
+           <header> 
+            <div class="image-text">
+                <span class="image">
+                    <img src="{% static 'myapp/logo.png' %}" alt="Logo">
+                </span>
+
+                <div class="text header-text">
+                    <span class="name">MedRecomm</span>
+                    <span class="profession">Predict Condition </span>
+                </div>
+            </div>
+            </header>
+        <div class="menu-bar">
+            <div class="menu">
+                    <!-- <li class="searchBox">
+                            <i class="bx bx-search icon"></i>
+                            <input type="search" placeholder="search...">
+                    </li>  -->
+
+                <ul class="menu-list">
+                    <li class="nav-link">
+                        <a href="{% url 'base' %}">
+                            <i class="bx bx-home-alt icon"></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>   
+                </ul>
+
+                <ul class="menu-list">
+                    <li class="nav-link active">
+                        <a href="#">
+                            <i class="bx bx-time icon"></i>
+                            <span class="text nav-text">History</span>
+                        </a>
+                    </li>   
+                </ul>
+
+            </div>
+        </div>
+    </div>
+
+    <section class="home">
+        <div class="text home-header">
+            <span class="hname">History</span>
+            <span class="hproffession">Track your past predictions and recommended drugs</span>
+        </div>
+
+
+        <div class="history-cards">
+
+            <div class="card">
+                <div class="text header-text">
+                    <span class="name">{{total_predictions}}</span>
+                    <span class="profession">Total Pedictions</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="text header-text">
+                    <span class="name">{{avg_confidence|floatformat:1}} %</span>
+                    <span class="profession">Average Confidence</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="text header-text">
+                    <span class="name">{{most_common.Conditions}}</span>
+                    <span class="profession">Most Common Condition</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="text header-text">
+                    <span class="name">{{last_prediction.Pre_Date}}</span>
+                    <span class="profession">Latest Pedictions</span>
+                </div>
+            </div>
+<!-- 
+            <div class="card filter-card" >
+ 
+            </div> -->
+
+        <div class="card results-table">
+                <h2 class="card-text">Past Predictions</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Date & Time</th>
+                        <th>Symptoms</th>
+                        <th>Condition</th>
+                        <th>Confidence</th>
+                        <th>Recommended Drug</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{record.Pre_Date}}</td>
+                            <td>{{ record.Symptoms }}</td>
+                            <td>{{ record.Conditions }}</td>
+                            <td>{{ record.Confidence}}%</td>
+                            <td>{{ record.RecommendedDrug }}</td>
+                    
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    </section>
+
+</body>
+</html>
